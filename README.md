@@ -1,76 +1,73 @@
 # Portfolio Template
 
-Un template de portfolio personnel réutilisable, piloté par les données et développé en HTML, CSS et JavaScript vanilla.
+Template de portfolio professionnel réutilisable en HTML, CSS et JavaScript vanilla, avec support Français + English + العربية.
 
-Le projet sépare le **moteur du portfolio** du contenu, de l'identité visuelle et des assets propres à chaque personne.
+## Multilingue
+
+Le portfolio est français par défaut et propose :
+- 🇫🇷 Français
+- 🇬🇧 English
+- 🇸🇦 العربية
+
+Le choix est mémorisé dans le navigateur. L'arabe active automatiquement le mode RTL.
+
+Workflow :
+
+~~~text
+Contenu FR
+   ↓
+npm run translate
+   ↓
+FR + EN + AR
+   ↓
+Relecture
+   ↓
+Déploiement
+~~~
+
+La traduction est générée avant le déploiement : le visiteur ne déclenche aucune API de traduction et aucune clé API n'est exposée dans le navigateur.
 
 ## Architecture
 
-- **Core**: reusable UI and rendering logic
-- **Data**: profile-specific content
-- **Theme**: visual identity and design tokens
-- **Features**: optional sections and functionality
-- **Assets**: images, documents and icons
-
-> **Main principle:** Change the Data layer for a new person; change the Core only when improving reusable functionality.
+- Core : moteur et interface réutilisables
+- Data : contenu source du portfolio, en français
+- Locales : versions FR / EN / AR
+- Theme : identité visuelle
+- Features : sections optionnelles
+- Assets : images, CV et icônes
 
 ## Quick Start
 
-1. Copy or clone this repository into a new project.
-2. Edit the files in `data/`.
-3. Add personal images and documents to `assets/`.
-4. Adjust the theme in `js/config.js`.
-5. Test the portfolio on desktop and mobile.
-6. Deploy it to your preferred static hosting provider.
+1. Copier ce repository dans un nouveau projet.
+2. Modifier les fichiers dans data/.
+3. Ajouter les assets.
+4. Configurer js/config.js.
+5. Générer les traductions avec npm run translate.
+6. Tester FR / EN / AR, y compris le RTL.
+7. Déployer.
 
-Pour le guide complet d'utilisation, consultez **[DOCUMENTATION.md](./DOCUMENTATION.md)**.
+## Génération automatique
 
-Pour les règles de personnalisation et la checklist avant livraison, consultez **[CUSTOMIZATION.md](./CUSTOMIZATION.md)**.
+Préparer une clé API uniquement dans l'environnement local :
 
-## What to Customize
+~~~text
+OPENAI_API_KEY=votre_cle
+~~~
 
-Pour un portfolio classique, commencez par :
+Puis :
 
-```text
-data/profile.js
-data/experience.js
-data/projects.js
-data/skills.js
-data/education.js
-data/certifications.js
-data/settings.js
-data/social.js
-js/config.js
-```
+~~~bash
+npm run translate
+~~~
 
-Vous n'avez normalement **pas besoin de réécrire `js/app.js`**.
+La clé est utilisée uniquement par scripts/translate.mjs, jamais par le navigateur.
 
-## Structure
+Relire les traductions avant livraison, surtout pour les titres professionnels, termes métier, noms propres et arabe professionnel.
 
-```text
-portfolio-template/
-├── index.html
-├── css/
-├── js/
-│   ├── components/
-│   └── utils/
-├── data/
-├── assets/
-├── DOCUMENTATION.md
-├── CUSTOMIZATION.md
-└── README.md
-```
+## Sécurité
 
-## Development
-
-Ce template est volontairement sans dépendance obligatoire afin de pouvoir être déployé directement sur Vercel, GitHub Pages ou tout hébergement statique.
-
-## Security
-
-Ne versionnez jamais de clés API, mots de passe, tokens, certificats privés ou autres secrets dans ce dépôt public.
-
-Les informations privées propres aux clients doivent rester en dehors du template public.
+Ne jamais versionner de clés API, mots de passe, tokens, certificats privés, fichiers .env ou données confidentielles client.
 
 ## Reuse
 
-Pour un nouveau client, créez un dépôt séparé à partir de ce template. Gardez le contenu du client indépendant du moteur réutilisable afin de pouvoir faire évoluer le template sans exposer de données privées.
+Chaque client doit avoir son propre repository basé sur ce template.
