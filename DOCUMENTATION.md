@@ -1,50 +1,50 @@
 # Portfolio Template — Documentation
 
-## 1. Overview
+## 1. Présentation
 
-This repository is a reusable, dependency-free portfolio template built with HTML, CSS and JavaScript.
+Ce dépôt est un template de portfolio réutilisable, développé en HTML, CSS et JavaScript, sans dépendance obligatoire.
 
-The goal is to separate the **portfolio engine** from the **personal content** so the same codebase can be reused for different people and projects.
+L'objectif est de séparer le **moteur du portfolio** du **contenu personnel**, afin de pouvoir utiliser la même base pour plusieurs personnes et projets.
 
 ### Architecture
 
 ```
-Core        → reusable UI and JavaScript
-Data        → profile, experience, projects, skills...
-Theme       → colors and visual identity
-Features    → sections and optional functionality
-Assets      → images, icons and documents
+Core        → interface et logique réutilisables
+Data        → profil, expériences, projets, compétences...
+Theme       → couleurs et identité visuelle
+Features    → sections et fonctionnalités optionnelles
+Assets      → images, icônes et documents
 ```
 
-The main rule is:
+La règle principale est :
 
-> **Customize the files in `data/` first. Avoid modifying the core engine unless you need new functionality.**
-
----
-
-## 2. Quick Start
-
-### Option A — Use GitHub
-
-1. Create a new repository for the portfolio.
-2. Copy this template into the new repository.
-3. Edit the files in `data/`.
-4. Add personal assets to `assets/`.
-5. Deploy the repository with your preferred static hosting provider.
-
-### Option B — Run locally
-
-Because this is a static project, no backend or package installation is required for the basic version.
-
-You can open `index.html` directly in a browser.
-
-For development, a local static server is recommended because browser module behavior is more consistent when served over HTTP.
+> **On personnalise d'abord les fichiers de `data/`. On ne modifie le moteur que lorsqu'on souhaite ajouter ou améliorer une fonctionnalité réutilisable.**
 
 ---
 
-## 3. Personal Data
+## 2. Démarrage rapide
 
-All main portfolio content is stored in:
+### Option A — Utiliser GitHub
+
+1. Créer un nouveau dépôt pour le portfolio.
+2. Copier ce template dans le nouveau dépôt.
+3. Modifier les fichiers dans `data/`.
+4. Ajouter les éléments personnels dans `assets/`.
+5. Déployer avec l'hébergeur de votre choix.
+
+### Option B — Tester en local
+
+Le projet étant statique, aucune installation de dépendances n'est nécessaire pour la version de base.
+
+Il est possible d'ouvrir directement `index.html` dans un navigateur.
+
+Pour le développement, il est recommandé d'utiliser un petit serveur local afin d'avoir un comportement cohérent avec les modules JavaScript.
+
+---
+
+## 3. Personnaliser les informations
+
+Les principales informations du portfolio se trouvent dans :
 
 ```
 data/
@@ -58,35 +58,35 @@ data/
 └── social.js
 ```
 
-### Profile
+### Profil
 
-Edit `data/profile.js` for:
+Modifier `data/profile.js` pour renseigner :
 
-- name
-- first name / last name
-- professional role
-- location
-- availability
-- tagline
-- biography
+- nom
+- prénom / nom
+- métier ou titre professionnel
+- localisation
+- disponibilité
+- slogan / accroche
+- présentation
 - email
-- phone
-- CV path
-- profile photo
+- téléphone
+- chemin vers le CV
+- photo de profil
 
-### Experience
+### Expériences professionnelles
 
-Edit `data/experience.js`.
+Modifier `data/experience.js`.
 
-Each experience can contain:
+Chaque expérience peut contenir :
 
-- company
-- role
-- location
-- start date
-- end date
+- entreprise
+- poste
+- localisation
+- date de début
+- date de fin
 - description
-- achievements
+- réalisations
 
 Example:
 
@@ -97,63 +97,63 @@ Example:
   location: "Paris, France",
   start: "2024",
   end: "Present",
-  description: "Short description of the role.",
+  description: "Description courte du poste.",
   achievements: [
-    "Achievement one",
-    "Achievement two"
+    "Réalisation importante n°1",
+    "Réalisation importante n°2"
   ]
 }
 ```
 
-### Projects
+### Projets
 
-Edit `data/projects.js`.
+Modifier `data/projects.js`.
 
-Each project can contain:
+Chaque projet peut contenir :
 
-- title
+- titre
 - description
 - technologies
 - image
 - URL
-- featured status
+- statut « projet mis en avant »
 
-### Skills
+### Compétences
 
-Edit `data/skills.js` and organize skills by category.
+Modifier `data/skills.js` et organiser les compétences par catégorie.
 
-### Education
+### Formation
 
-Edit `data/education.js`.
+Modifier `data/education.js`.
 
 ### Certifications
 
-Add certifications to `data/certifications.js`.
+Ajouter les certifications dans `data/certifications.js`.
 
-### Social links
+### Réseaux sociaux
 
-Edit `data/social.js` for LinkedIn, GitHub, website and email links.
+Modifier `data/social.js` pour LinkedIn, GitHub, site personnel et email.
 
 ---
 
-## 4. Enable or Disable Sections
+## 4. Activer ou désactiver les sections
 
-Use `data/settings.js` to control which sections are displayed.
+Le fichier `data/settings.js` permet de contrôler les sections affichées.
 
-Available sections include:
+Les sections disponibles comprennent notamment :
 
-- About
-- Experience
-- Skills
-- Projects
-- Education
+- À propos
+- Expériences
+- Compétences
+- Projets
+- Formation
 - Certifications
 - Services
-- Testimonials
+- Témoignages
 - Playground
 - Contact
 
-You can disable sections that are not relevant to a particular portfolio.
+Une section qui n'est pas pertinente peut être désactivée.
 
 Example:
 
@@ -174,25 +174,25 @@ sections: {
 
 ---
 
-## 5. Customize the Theme
+## 5. Personnaliser le thème
 
-Basic visual configuration is available in:
+La configuration visuelle principale se trouve dans :
 
 ```
 js/config.js
 ```
 
-You can change:
+Vous pouvez modifier :
 
-- primary color
-- secondary color
-- background
-- surface colors
-- text colors
-- muted text
-- border radius
+- couleur principale
+- couleur secondaire
+- arrière-plan
+- couleurs des surfaces
+- couleur du texte
+- couleur du texte secondaire
+- rayon des bordures
 
-More detailed visual changes belong in:
+Pour des modifications plus avancées :
 
 ```
 css/main.css
@@ -201,11 +201,11 @@ css/responsive.css
 
 ---
 
-## 6. Assets
+## 6. Ajouter les assets
 
-Put personal assets in the `assets/` directory.
+Les éléments personnels doivent être placés dans `assets/`.
 
-Typical assets:
+Exemples :
 
 ```
 assets/
@@ -216,19 +216,19 @@ assets/
 
 Examples:
 
-- profile photo
-- project screenshots
+- photo de profil
+- captures d'écran des projets
 - CV PDF
 - favicon
-- company/project images
+- images d'entreprises ou de projets
 
-Avoid storing secrets or private credentials in this repository.
+Ne jamais stocker de clés API, mots de passe ou identifiants privés dans ce dépôt public.
 
 ---
 
-## 7. JavaScript Architecture
+## 7. Comprendre l'architecture JavaScript
 
-The JavaScript engine is located in:
+Le moteur JavaScript se trouve dans :
 
 ```
 js/
@@ -240,160 +240,160 @@ js/
 
 ### app.js
 
-Application entry point. It loads the data and renders the portfolio.
+Point d'entrée de l'application. Il charge les données et construit le portfolio.
 
 ### components/
 
-Reusable UI components belong here.
+Contient les composants d'interface réutilisables.
 
 ### utils/
 
-Generic helper functions belong here.
+Contient les fonctions utilitaires génériques.
 
 ### config.js
 
-Global theme configuration belongs here.
+Contient la configuration globale du thème.
 
-If you only want to change personal information, you normally **do not need to edit these files**.
+Si votre objectif est uniquement de changer les informations personnelles, vous ne devriez normalement **pas avoir besoin de modifier ces fichiers**.
 
 ---
 
-## 8. Adding New Features
+## 8. Ajouter de nouvelles fonctionnalités
 
-When adding a feature, keep the separation between:
+Lorsqu'une nouvelle fonctionnalité est ajoutée, il faut conserver la séparation entre :
 
-- reusable functionality
-- personal content
-- visual theme
-- feature configuration
+- fonctionnalité réutilisable
+- contenu personnel
+- identité visuelle
+- configuration des fonctionnalités
 
-For example, a playground game should be implemented as reusable functionality, while whether the playground is enabled should be controlled from `data/settings.js`.
+Par exemple, un jeu du Playground doit être développé comme une fonctionnalité réutilisable. Le fait d'afficher ou non le Playground doit être contrôlé depuis `data/settings.js`.
 
 ---
 
 ## 9. SEO
 
-For each new portfolio, update:
+Pour chaque nouveau portfolio, penser à adapter :
 
-- page title
+- titre de la page
 - meta description
-- Open Graph metadata
-- canonical URL
+- métadonnées Open Graph
+- URL canonique
 - favicon
-- robots.txt
-- sitemap.xml
+- `robots.txt`
+- `sitemap.xml`
 
-SEO configuration should be adapted to the person's name, role and domain.
-
----
-
-## 10. Contact Form
-
-The template can support a contact form, but production email delivery should use a proper backend or form service.
-
-Never put private API keys directly inside client-side JavaScript.
-
-If an external service is used, keep secrets in environment variables on the hosting platform or in a server-side function.
+Les informations SEO doivent correspondre au nom, au métier et au domaine de la personne.
 
 ---
 
-## 11. Deployment
+## 10. Formulaire de contact
 
-The project is static and can be deployed on:
+Le template peut intégrer un formulaire de contact, mais l'envoi réel des emails doit utiliser un backend ou un service de formulaire adapté à la production.
+
+**Ne jamais placer une clé API privée directement dans le JavaScript exécuté côté navigateur.**
+
+Si un service externe est utilisé, les secrets doivent rester dans des variables d'environnement ou dans une fonction exécutée côté serveur.
+
+---
+
+## 11. Déploiement
+
+Le projet est statique et peut être déployé sur :
 
 - Vercel
 - GitHub Pages
 - Netlify
 - any static hosting provider
 
-For a Vercel deployment:
+### Exemple avec Vercel
 
-1. Push the project to GitHub.
-2. Import the repository into Vercel.
-3. Use the repository root as the project root.
-4. No build command is required for the basic static version.
-5. Deploy.
+1. Pousser le projet sur GitHub.
+2. Importer le dépôt dans Vercel.
+3. Utiliser la racine du dépôt comme répertoire du projet.
+4. Pour la version statique de base, aucune commande de build n'est nécessaire.
+5. Déployer.
 
-After deployment, verify:
+Après le déploiement, vérifier :
 
 - navigation
-- responsive layout
+- affichage responsive
 - images
-- CV link
-- project links
-- social links
-- contact form
-- SEO metadata
+- lien du CV
+- liens des projets
+- réseaux sociaux
+- formulaire de contact
+- SEO
 
 ---
 
-## 12. Recommended Workflow for a New Client
+## 12. Workflow recommandé pour un nouveau client
 
-When creating a portfolio for a new person:
+Lors de la création d'un portfolio pour une nouvelle personne :
 
-### Step 1 — Copy the template
+### Étape 1 — Créer un projet indépendant
 
-Create a separate repository for the client.
+Créer un nouveau dépôt à partir du template.
 
-### Step 2 — Collect content
+### Étape 2 — Récupérer le contenu
 
-Get the client's:
+Demander au client :
 
 - CV
-- professional photo
-- projects
-- social links
-- contact information
-- preferred colors
-- domain name
+- photo professionnelle
+- projets
+- réseaux sociaux
+- coordonnées
+- couleurs souhaitées
+- nom de domaine
 
-### Step 3 — Fill the Data layer
+### Étape 3 — Remplir la couche Data
 
-Update the files inside `data/`.
+Modifier les fichiers dans `data/`.
 
-### Step 4 — Add assets
+### Étape 4 — Ajouter les assets
 
-Add images and documents inside `assets/`.
+Ajouter les images et documents dans `assets/`.
 
-### Step 5 — Configure the theme
+### Étape 5 — Configurer le thème
 
-Update `js/config.js`.
+Modifier `js/config.js`.
 
-### Step 6 — Enable required features
+### Étape 6 — Activer les fonctionnalités nécessaires
 
-Update `data/settings.js`.
+Modifier `data/settings.js`.
 
-### Step 7 — Test
+### Étape 7 — Tester
 
-Check desktop, tablet and mobile.
+Vérifier le rendu sur desktop, tablette et mobile.
 
-### Step 8 — Deploy
+### Étape 8 — Déployer
 
-Deploy the client repository independently.
-
----
-
-## 13. Security Rules
-
-Never commit:
-
-- API keys
-- passwords
-- access tokens
-- private certificates
-- `.env` files containing secrets
-- private client information
-
-Client-specific private information should stay outside the public template repository.
+Déployer le projet du client indépendamment du template.
 
 ---
 
-## 14. Design Principle
+## 13. Règles de sécurité
 
-The template should evolve as a reusable product.
+Ne jamais versionner :
 
-When improving the portfolio engine, prefer changes that benefit every future portfolio.
+- clés API
+- mots de passe
+- tokens d'accès
+- certificats privés
+- fichiers `.env` contenant des secrets
+- informations privées d'un client
 
-When adding personal content, put it in the Data or Assets layer.
+Les informations privées propres à un client doivent rester dans son projet et ne doivent pas être ajoutées au template public.
 
-This keeps the template maintainable and makes future client projects faster to build.
+---
+
+## 14. Principe d'évolution du template
+
+Le template doit évoluer comme un produit réutilisable.
+
+Lorsqu'une amélioration peut bénéficier à tous les futurs portfolios, elle doit idéalement être ajoutée au **Core**.
+
+Lorsqu'une information concerne uniquement une personne, elle doit rester dans **Data** ou **Assets**.
+
+Cela permet de conserver un moteur propre et de réduire progressivement le temps nécessaire pour créer chaque nouveau portfolio.
