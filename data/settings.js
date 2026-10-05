@@ -1,4 +1,9 @@
 export const settings = {
+  language: {
+    default: "fr",
+    available: ["fr", "en", "ar"],
+    autoDetect: false
+  },
   sections: {
     about: true,
     experience: true,
