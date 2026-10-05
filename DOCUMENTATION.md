@@ -1,399 +1,114 @@
 # Portfolio Template — Documentation
 
-## 1. Présentation
+## 1. Objectif
 
-Ce dépôt est un template de portfolio réutilisable, développé en HTML, CSS et JavaScript, sans dépendance obligatoire.
+Le template sépare le moteur réutilisable, le contenu français, les traductions, le thème, les fonctionnalités et les assets.
 
-L'objectif est de séparer le **moteur du portfolio** du **contenu personnel**, afin de pouvoir utiliser la même base pour plusieurs personnes et projets.
+Règle d'or : une modification des données ne doit pas nécessiter de modification du Core.
 
-### Architecture
+## 2. Multilingue
 
-```
-Core        → interface et logique réutilisables
-Data        → profil, expériences, projets, compétences...
-Theme       → couleurs et identité visuelle
-Features    → sections et fonctionnalités optionnelles
-Assets      → images, icônes et documents
-```
+Langues disponibles :
+- Français, langue par défaut
+- English
+- العربية, avec RTL
 
-La règle principale est :
+Le choix de langue est stocké dans localStorage. Sans choix mémorisé, le site démarre en français.
 
-> **On personnalise d'abord les fichiers de `data/`. On ne modifie le moteur que lorsqu'on souhaite ajouter ou améliorer une fonctionnalité réutilisable.**
+Les fichiers de data/ sont la source française. Les fichiers de data/locales/ sont utilisés par le navigateur.
 
----
+## 3. Workflow client
 
-## 2. Démarrage rapide
+~~~text
+CV / informations
+      ↓
+Remplissage FR
+      ↓
+npm run translate
+      ↓
+FR + EN + AR
+      ↓
+Relecture
+      ↓
+Tests desktop / mobile / RTL
+      ↓
+Vercel
+~~~
 
-### Option A — Utiliser GitHub
+## 4. Traduction automatique
 
-1. Créer un nouveau dépôt pour le portfolio.
-2. Copier ce template dans le nouveau dépôt.
-3. Modifier les fichiers dans `data/`.
-4. Ajouter les éléments personnels dans `assets/`.
-5. Déployer avec l'hébergeur de votre choix.
+scripts/translate.mjs :
 
-### Option B — Tester en local
+1. charge les sources data/*.js ;
+2. demande une traduction structurée ;
+3. conserve les clés, structures, URLs, technologies et dates ;
+4. écrit les locales ;
+5. produit une version française basée sur la source.
 
-Le projet étant statique, aucune installation de dépendances n'est nécessaire pour la version de base.
+La clé est lue via OPENAI_API_KEY côté Node.js uniquement.
 
-Il est possible d'ouvrir directement `index.html` dans un navigateur.
+Important : la traduction automatique est une première version. Relire les termes métier, noms propres, titres professionnels et textes arabes avant livraison.
 
-Pour le développement, il est recommandé d'utiliser un petit serveur local afin d'avoir un comportement cohérent avec les modules JavaScript.
+## 5. Modifier le contenu
 
----
+Modifier les sources françaises :
+- data/profile.js
+- data/experience.js
+- data/projects.js
+- data/skills.js
+- data/education.js
+- data/certifications.js
+- data/social.js
 
-## 3. Personnaliser les informations
+Ne pas traduire manuellement avant la génération.
 
-Les principales informations du portfolio se trouvent dans :
+## 6. Configuration
 
-```
-data/
-├── profile.js
-├── experience.js
-├── projects.js
-├── skills.js
-├── education.js
-├── certifications.js
-├── settings.js
-└── social.js
-```
+data/settings.js contrôle la langue :
 
-### Profil
-
-Modifier `data/profile.js` pour renseigner :
-
-- nom
-- prénom / nom
-- métier ou titre professionnel
-- localisation
-- disponibilité
-- slogan / accroche
-- présentation
-- email
-- téléphone
-- chemin vers le CV
-- photo de profil
-
-### Expériences professionnelles
-
-Modifier `data/experience.js`.
-
-Chaque expérience peut contenir :
-
-- entreprise
-- poste
-- localisation
-- date de début
-- date de fin
-- description
-- réalisations
-
-Example:
-
-```js
-{
-  company: "Company Name",
-  role: "Full Stack Developer",
-  location: "Paris, France",
-  start: "2024",
-  end: "Present",
-  description: "Description courte du poste.",
-  achievements: [
-    "Réalisation importante n°1",
-    "Réalisation importante n°2"
-  ]
+~~~js
+language: {
+  default: "fr",
+  available: ["fr", "en", "ar"],
+  autoDetect: false
 }
-```
+~~~
 
-### Projets
+Le démarrage en français est volontairement stable.
 
-Modifier `data/projects.js`.
+## 7. RTL arabe
 
-Chaque projet peut contenir :
+Quand ar est sélectionné, le document passe en lang=ar et dir=rtl.
 
-- titre
-- description
-- technologies
-- image
-- URL
-- statut « projet mis en avant »
+Le Core adapte la navigation, les listes, boutons, tags, alignements et sélecteur de langue.
 
-### Compétences
+Toute nouvelle fonctionnalité doit être testée en arabe.
 
-Modifier `data/skills.js` et organiser les compétences par catégorie.
+## 8. SEO multilingue
 
-### Formation
+Pour une évolution avancée :
+- title localisé ;
+- meta description localisée ;
+- Open Graph ;
+- canonical ;
+- hreflang ;
+- sitemap ;
+- robots.txt.
 
-Modifier `data/education.js`.
+Le système actuel change la langue côté client. Une future version peut proposer /fr/, /en/ et /ar/ pour un SEO multilingue plus fort.
 
-### Certifications
+## 9. Déploiement
 
-Ajouter les certifications dans `data/certifications.js`.
+Le site est statique et peut être déployé sur Vercel, GitHub Pages, Netlify ou un hébergement équivalent.
 
-### Réseaux sociaux
+Avant production :
+- tester les trois langues ;
+- tester le RTL ;
+- tester mobile ;
+- vérifier CV, liens, images, SEO et formulaire.
 
-Modifier `data/social.js` pour LinkedIn, GitHub, site personnel et email.
+## 10. Évolution
 
----
+Si une amélioration est utile à plusieurs clients, elle appartient au Core.
 
-## 4. Activer ou désactiver les sections
-
-Le fichier `data/settings.js` permet de contrôler les sections affichées.
-
-Les sections disponibles comprennent notamment :
-
-- À propos
-- Expériences
-- Compétences
-- Projets
-- Formation
-- Certifications
-- Services
-- Témoignages
-- Playground
-- Contact
-
-Une section qui n'est pas pertinente peut être désactivée.
-
-Example:
-
-```js
-sections: {
-  about: true,
-  experience: true,
-  skills: true,
-  projects: true,
-  education: true,
-  certifications: false,
-  services: false,
-  testimonials: false,
-  playground: true,
-  contact: true
-}
-```
-
----
-
-## 5. Personnaliser le thème
-
-La configuration visuelle principale se trouve dans :
-
-```
-js/config.js
-```
-
-Vous pouvez modifier :
-
-- couleur principale
-- couleur secondaire
-- arrière-plan
-- couleurs des surfaces
-- couleur du texte
-- couleur du texte secondaire
-- rayon des bordures
-
-Pour des modifications plus avancées :
-
-```
-css/main.css
-css/responsive.css
-```
-
----
-
-## 6. Ajouter les assets
-
-Les éléments personnels doivent être placés dans `assets/`.
-
-Exemples :
-
-```
-assets/
-├── images/
-├── documents/
-└── icons/
-```
-
-Examples:
-
-- photo de profil
-- captures d'écran des projets
-- CV PDF
-- favicon
-- images d'entreprises ou de projets
-
-Ne jamais stocker de clés API, mots de passe ou identifiants privés dans ce dépôt public.
-
----
-
-## 7. Comprendre l'architecture JavaScript
-
-Le moteur JavaScript se trouve dans :
-
-```
-js/
-├── app.js
-├── config.js
-├── components/
-└── utils/
-```
-
-### app.js
-
-Point d'entrée de l'application. Il charge les données et construit le portfolio.
-
-### components/
-
-Contient les composants d'interface réutilisables.
-
-### utils/
-
-Contient les fonctions utilitaires génériques.
-
-### config.js
-
-Contient la configuration globale du thème.
-
-Si votre objectif est uniquement de changer les informations personnelles, vous ne devriez normalement **pas avoir besoin de modifier ces fichiers**.
-
----
-
-## 8. Ajouter de nouvelles fonctionnalités
-
-Lorsqu'une nouvelle fonctionnalité est ajoutée, il faut conserver la séparation entre :
-
-- fonctionnalité réutilisable
-- contenu personnel
-- identité visuelle
-- configuration des fonctionnalités
-
-Par exemple, un jeu du Playground doit être développé comme une fonctionnalité réutilisable. Le fait d'afficher ou non le Playground doit être contrôlé depuis `data/settings.js`.
-
----
-
-## 9. SEO
-
-Pour chaque nouveau portfolio, penser à adapter :
-
-- titre de la page
-- meta description
-- métadonnées Open Graph
-- URL canonique
-- favicon
-- `robots.txt`
-- `sitemap.xml`
-
-Les informations SEO doivent correspondre au nom, au métier et au domaine de la personne.
-
----
-
-## 10. Formulaire de contact
-
-Le template peut intégrer un formulaire de contact, mais l'envoi réel des emails doit utiliser un backend ou un service de formulaire adapté à la production.
-
-**Ne jamais placer une clé API privée directement dans le JavaScript exécuté côté navigateur.**
-
-Si un service externe est utilisé, les secrets doivent rester dans des variables d'environnement ou dans une fonction exécutée côté serveur.
-
----
-
-## 11. Déploiement
-
-Le projet est statique et peut être déployé sur :
-
-- Vercel
-- GitHub Pages
-- Netlify
-- any static hosting provider
-
-### Exemple avec Vercel
-
-1. Pousser le projet sur GitHub.
-2. Importer le dépôt dans Vercel.
-3. Utiliser la racine du dépôt comme répertoire du projet.
-4. Pour la version statique de base, aucune commande de build n'est nécessaire.
-5. Déployer.
-
-Après le déploiement, vérifier :
-
-- navigation
-- affichage responsive
-- images
-- lien du CV
-- liens des projets
-- réseaux sociaux
-- formulaire de contact
-- SEO
-
----
-
-## 12. Workflow recommandé pour un nouveau client
-
-Lors de la création d'un portfolio pour une nouvelle personne :
-
-### Étape 1 — Créer un projet indépendant
-
-Créer un nouveau dépôt à partir du template.
-
-### Étape 2 — Récupérer le contenu
-
-Demander au client :
-
-- CV
-- photo professionnelle
-- projets
-- réseaux sociaux
-- coordonnées
-- couleurs souhaitées
-- nom de domaine
-
-### Étape 3 — Remplir la couche Data
-
-Modifier les fichiers dans `data/`.
-
-### Étape 4 — Ajouter les assets
-
-Ajouter les images et documents dans `assets/`.
-
-### Étape 5 — Configurer le thème
-
-Modifier `js/config.js`.
-
-### Étape 6 — Activer les fonctionnalités nécessaires
-
-Modifier `data/settings.js`.
-
-### Étape 7 — Tester
-
-Vérifier le rendu sur desktop, tablette et mobile.
-
-### Étape 8 — Déployer
-
-Déployer le projet du client indépendamment du template.
-
----
-
-## 13. Règles de sécurité
-
-Ne jamais versionner :
-
-- clés API
-- mots de passe
-- tokens d'accès
-- certificats privés
-- fichiers `.env` contenant des secrets
-- informations privées d'un client
-
-Les informations privées propres à un client doivent rester dans son projet et ne doivent pas être ajoutées au template public.
-
----
-
-## 14. Principe d'évolution du template
-
-Le template doit évoluer comme un produit réutilisable.
-
-Lorsqu'une amélioration peut bénéficier à tous les futurs portfolios, elle doit idéalement être ajoutée au **Core**.
-
-Lorsqu'une information concerne uniquement une personne, elle doit rester dans **Data** ou **Assets**.
-
-Cela permet de conserver un moteur propre et de réduire progressivement le temps nécessaire pour créer chaque nouveau portfolio.
+Si elle concerne un seul client, elle reste dans son repository.
