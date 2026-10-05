@@ -1,8 +1,8 @@
 # Portfolio Template
 
-A reusable, data-driven personal portfolio template built with HTML, CSS and vanilla JavaScript.
+Un template de portfolio personnel réutilisable, piloté par les données et développé en HTML, CSS et JavaScript vanilla.
 
-The project separates the reusable **portfolio engine** from each person's content, visual identity and assets.
+Le projet sépare le **moteur du portfolio** du contenu, de l'identité visuelle et des assets propres à chaque personne.
 
 ## Architecture
 
@@ -23,13 +23,13 @@ The project separates the reusable **portfolio engine** from each person's conte
 5. Test the portfolio on desktop and mobile.
 6. Deploy it to your preferred static hosting provider.
 
-For the complete setup guide, see **[DOCUMENTATION.md](./DOCUMENTATION.md)**.
+Pour le guide complet d'utilisation, consultez **[DOCUMENTATION.md](./DOCUMENTATION.md)**.
 
-For detailed customization rules and the delivery checklist, see **[CUSTOMIZATION.md](./CUSTOMIZATION.md)**.
+Pour les règles de personnalisation et la checklist avant livraison, consultez **[CUSTOMIZATION.md](./CUSTOMIZATION.md)**.
 
 ## What to Customize
 
-For a normal portfolio, start with:
+Pour un portfolio classique, commencez par :
 
 ```text
 data/profile.js
@@ -43,7 +43,7 @@ data/social.js
 js/config.js
 ```
 
-You normally do **not** need to rewrite `js/app.js`.
+Vous n'avez normalement **pas besoin de réécrire `js/app.js`**.
 
 ## Structure
 
@@ -63,14 +63,14 @@ portfolio-template/
 
 ## Development
 
-This template is intentionally dependency-free so it can be deployed directly to Vercel, GitHub Pages or any static hosting provider.
+Ce template est volontairement sans dépendance obligatoire afin de pouvoir être déployé directement sur Vercel, GitHub Pages ou tout hébergement statique.
 
 ## Security
 
-Never commit API keys, passwords, access tokens, private certificates or other secrets to this public repository.
+Ne versionnez jamais de clés API, mots de passe, tokens, certificats privés ou autres secrets dans ce dépôt public.
 
-Client-specific private information should remain outside the public template.
+Les informations privées propres aux clients doivent rester en dehors du template public.
 
 ## Reuse
 
-For a new client, create a separate repository from this template. Keep client content independent from the reusable engine so improvements to the template can continue without exposing private client data.
+Pour un nouveau client, créez un dépôt séparé à partir de ce template. Gardez le contenu du client indépendant du moteur réutilisable afin de pouvoir faire évoluer le template sans exposer de données privées.
