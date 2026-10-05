@@ -1,8 +1,8 @@
 export const projects = [
   {
-    title: "Project Name",
-    description: "Short project description focused on business value and results.",
-    technologies: ["Technology", "Technology"],
+    title: "Nom du projet",
+    description: "Courte description orientée valeur métier et résultats.",
+    technologies: ["Technologie", "Technologie"],
     image: "assets/images/projects/project-1.jpg",
     url: "",
     featured: true
