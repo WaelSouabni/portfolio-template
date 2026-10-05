@@ -1,250 +1,122 @@
-# Portfolio Template — Customization Guide
+# Portfolio Template — Guide de personnalisation
 
-Ce guide explique comment transformer le template en portfolio personnel sans modifier inutilement le moteur.
+## Règle des 80/20
 
-## 1. La règle des 80/20
+Pour un nouveau client, la majorité du travail se fait dans data/.
 
-Pour un portfolio classique, la majorité de la personnalisation doit se faire dans :
-
-```
+~~~text
 data/profile.js
 data/experience.js
 data/projects.js
 data/skills.js
 data/education.js
 data/certifications.js
-data/settings.js
 data/social.js
-js/config.js
-```
-
-Vous ne devriez normalement pas avoir besoin de réécrire `js/app.js`.
-
----
-
-## 2. Modifier l'identité
-
-Commencer par :
-
-```
-data/profile.js
-```
-
-Remplacer les informations génériques par les informations réelles de la personne.
-
-Then update:
-
-```
-data/social.js
-```
-
-avec les bons liens LinkedIn, GitHub, site web et email.
-
----
-
-## 3. Ajouter les expériences professionnelles
-
-Ouvrir :
-
-```
-data/experience.js
-```
-
-Ajouter un objet pour chaque expérience.
-
-La description doit rester concise. Les réalisations sont utiles pour mettre en avant les résultats, responsabilités ou contributions importantes.
-
----
-
-## 4. Ajouter les projets
-
-Open:
-
-```
-data/projects.js
-```
-
-Pour chaque projet, renseigner :
-
-- titre clair
-- courte présentation
-- technologies utilisées
-- image si disponible
-- URL du projet si disponible
-- dépôt GitHub si pertinent
-- indication permettant de mettre le projet en avant
-
-La description doit expliquer **la valeur du projet**, et pas seulement énumérer les technologies.
-
----
-
-## 5. Gérer les compétences
-
-Organiser les compétences par catégories.
-
-Typical groups:
-
-```
-frontend
-backend
-tools
-```
-
-Les catégories peuvent être adaptées au profil.
-
----
-
-## 6. Gérer les sections
-
-Use:
-
-```
 data/settings.js
-```
-
-Une section qui n'est pas pertinente doit être désactivée plutôt que laissée vide.
-
-Par exemple, si une personne n'a aucune certification :
-
-```js
-certifications: false
-```
-
-Cela permet de conserver un portfolio propre.
-
----
-
-## 7. Modifier les couleurs
-
-Open:
-
-```
 js/config.js
-```
+~~~
 
-Modifier les valeurs du thème pour correspondre à l'identité visuelle de la personne.
+## 1. Contenu source
 
-Pour un portfolio professionnel, conserver un contraste suffisant et une bonne lisibilité.
+Le français est la langue source. Remplir les fichiers data/*.js avec les informations réelles du client.
 
-Il vaut mieux utiliser une palette simple et cohérente plutôt que multiplier les couleurs.
+Ne pas remplir manuellement EN et AR.
 
----
+## 2. Traductions
 
-## 8. Ajouter les images et documents
+Configurer localement :
 
-Recommended structure:
+~~~text
+OPENAI_API_KEY=...
+~~~
 
-```
+Puis :
+
+~~~bash
+npm run translate
+~~~
+
+Cela génère :
+- data/locales/fr.js
+- data/locales/en.js
+- data/locales/ar.js
+
+## 3. Relecture
+
+Après génération, corriger si nécessaire :
+- titres professionnels ;
+- jargon métier ;
+- noms d'entreprises ;
+- noms de produits ;
+- formulations marketing ;
+- arabe professionnel.
+
+## 4. Sections
+
+Dans data/settings.js, activer ou désactiver les sections.
+
+## 5. Thème
+
+Modifier js/config.js pour les couleurs et tokens visuels.
+
+## 6. Assets
+
+Structure recommandée :
+
+~~~text
 assets/
 ├── images/
-│   ├── profile.jpg
+│   ├── profile/
 │   └── projects/
 ├── documents/
-│   └── CV.pdf
 └── icons/
-    └── favicon.svg
-```
+~~~
 
-Optimiser les images avant de les ajouter afin de conserver un chargement rapide.
+## 7. Tests multilingues
 
----
+- [ ] Français
+- [ ] English
+- [ ] العربية
+- [ ] RTL arabe
+- [ ] Navigation
+- [ ] Boutons
+- [ ] Cartes
+- [ ] Liens
+- [ ] Mobile
+- [ ] Desktop
+- [ ] CV
+- [ ] Formulaire
 
-## 9. Modifier le CSS
-
-Only edit:
-
-```
-css/main.css
-css/responsive.css
-```
-
-uniquement lorsque la configuration du thème ne suffit pas.
-
-Les styles doivent rester génériques afin que les améliorations puissent bénéficier aux futurs portfolios.
-
----
-
-## 10. Modifier le JavaScript
-
-Only modify:
-
-```
-js/app.js
-js/components/
-js/utils/
-```
-
-lorsque le comportement ou la fonctionnalité du moteur doit réellement évoluer.
-
-Avant de modifier le Core, poser cette question :
-
-> Est-ce que cette amélioration est utile à tous les futurs portfolios ?
-
-Si oui, elle a probablement sa place dans le template.
-
-Si non, elle peut rester spécifique au projet du client.
-
----
-
-## 11. Différence entre modification du template et modification client
-
-### Modification du template
-
-Example:
-
-> Améliorer la navigation mobile pour tous les portfolios.
-
-Cette modification doit être intégrée au template.
-
-### Modification spécifique à un client
-
-Example:
-
-> Ajouter une section présentant l'architecture technique particulière de ce client.
-
-Cette modification doit normalement rester dans le portfolio du client.
-
----
-
-## 12. Checklist avant livraison
+## 8. Checklist livraison
 
 ### Contenu
-
 - [ ] Nom correct
-- [ ] Titre professionnel correct
-- [ ] Présentation complète
-- [ ] Expériences vérifiées
-- [ ] Projets vérifiés
-- [ ] Compétences vérifiées
-- [ ] Formation vérifiée
-- [ ] Liens sociaux fonctionnels
-- [ ] Email correct
-
-### Design
-
-- [ ] Couleurs cohérentes
-- [ ] Images optimisées
-- [ ] Version desktop vérifiée
-- [ ] Version mobile vérifiée
-- [ ] Aucun texte placeholder restant
+- [ ] Titre professionnel
+- [ ] Présentation
+- [ ] Expériences
+- [ ] Projets
+- [ ] Compétences
+- [ ] Formation
+- [ ] Traductions relues
 
 ### Technique
-
-- [ ] Aucun secret dans le dépôt
+- [ ] Aucun secret dans Git
+- [ ] .env non committé
+- [ ] FR / EN / AR fonctionnels
+- [ ] RTL vérifié
 - [ ] CV accessible
-- [ ] Liens externes fonctionnels
-- [ ] Formulaire de contact testé
-- [ ] Métadonnées SEO mises à jour
-- [ ] `robots.txt` vérifié
-- [ ] `sitemap.xml` vérifié
-- [ ] Déploiement de production testé
+- [ ] Liens fonctionnels
+- [ ] SEO configuré
+- [ ] Formulaire testé
+- [ ] Production testée
 
----
+### Design
+- [ ] Aucun placeholder
+- [ ] Images optimisées
+- [ ] Desktop validé
+- [ ] Mobile validé
+- [ ] Arabe validé
 
-## 13. Règle d'or
+## Règle d'or
 
-**Une modification des données ne devrait pas nécessiter de modification du Core.**
-
-Si la même modification du moteur est nécessaire pour plusieurs clients, il faut envisager de rendre ce comportement configurable.
-
-C'est ainsi que le dépôt peut progressivement évoluer d'un simple template vers un véritable **Portfolio Engine réutilisable**.
+Le client fournit son contenu en français. Le moteur s'occupe du reste autant que possible.
