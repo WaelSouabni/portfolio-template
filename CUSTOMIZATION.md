@@ -1,10 +1,10 @@
 # Portfolio Template — Customization Guide
 
-This guide is for someone who wants to turn the template into a personal portfolio without changing the core engine.
+Ce guide explique comment transformer le template en portfolio personnel sans modifier inutilement le moteur.
 
-## 1. The 80/20 Rule
+## 1. La règle des 80/20
 
-For a normal portfolio, most customization should happen in only these files:
+Pour un portfolio classique, la majorité de la personnalisation doit se faire dans :
 
 ```
 data/profile.js
@@ -18,19 +18,19 @@ data/social.js
 js/config.js
 ```
 
-You should not need to rewrite `js/app.js`.
+Vous ne devriez normalement pas avoir besoin de réécrire `js/app.js`.
 
 ---
 
-## 2. Change the Identity
+## 2. Modifier l'identité
 
-Start with:
+Commencer par :
 
 ```
 data/profile.js
 ```
 
-Replace the placeholder information with the person's real information.
+Remplacer les informations génériques par les informations réelles de la personne.
 
 Then update:
 
@@ -38,25 +38,25 @@ Then update:
 data/social.js
 ```
 
-with the correct LinkedIn, GitHub, website and email.
+avec les bons liens LinkedIn, GitHub, site web et email.
 
 ---
 
-## 3. Add Professional Experience
+## 3. Ajouter les expériences professionnelles
 
-Open:
+Ouvrir :
 
 ```
 data/experience.js
 ```
 
-Add one object per position.
+Ajouter un objet pour chaque expérience.
 
-Keep the description concise and use achievements for measurable or important results.
+La description doit rester concise. Les réalisations sont utiles pour mettre en avant les résultats, responsabilités ou contributions importantes.
 
 ---
 
-## 4. Add Projects
+## 4. Ajouter les projets
 
 Open:
 
@@ -64,23 +64,23 @@ Open:
 data/projects.js
 ```
 
-For each project, provide:
+Pour chaque projet, renseigner :
 
-- a clear title
-- a short explanation
-- relevant technologies
-- a project image when available
-- a live URL when available
-- a repository URL when appropriate
-- whether the project should be featured
+- titre clair
+- courte présentation
+- technologies utilisées
+- image si disponible
+- URL du projet si disponible
+- dépôt GitHub si pertinent
+- indication permettant de mettre le projet en avant
 
-The project description should explain the value of the project, not only list technologies.
+La description doit expliquer **la valeur du projet**, et pas seulement énumérer les technologies.
 
 ---
 
-## 5. Manage Skills
+## 5. Gérer les compétences
 
-Group skills according to the person's profile.
+Organiser les compétences par catégories.
 
 Typical groups:
 
@@ -90,11 +90,11 @@ backend
 tools
 ```
 
-Add or remove groups as needed.
+Les catégories peuvent être adaptées au profil.
 
 ---
 
-## 6. Manage Sections
+## 6. Gérer les sections
 
 Use:
 
@@ -102,19 +102,19 @@ Use:
 data/settings.js
 ```
 
-A section that is not relevant should be disabled instead of being left empty.
+Une section qui n'est pas pertinente doit être désactivée plutôt que laissée vide.
 
-For example, if someone has no certifications:
+Par exemple, si une personne n'a aucune certification :
 
 ```js
 certifications: false
 ```
 
-This keeps the portfolio clean.
+Cela permet de conserver un portfolio propre.
 
 ---
 
-## 7. Change Colors
+## 7. Modifier les couleurs
 
 Open:
 
@@ -122,15 +122,15 @@ Open:
 js/config.js
 ```
 
-Change the theme values to match the person's visual identity.
+Modifier les valeurs du thème pour correspondre à l'identité visuelle de la personne.
 
-For a professional portfolio, keep strong contrast and readable text.
+Pour un portfolio professionnel, conserver un contraste suffisant et une bonne lisibilité.
 
-Do not change many colors at once. A simple palette is usually easier to maintain.
+Il vaut mieux utiliser une palette simple et cohérente plutôt que multiplier les couleurs.
 
 ---
 
-## 8. Add Images and Documents
+## 8. Ajouter les images et documents
 
 Recommended structure:
 
@@ -145,11 +145,11 @@ assets/
     └── favicon.svg
 ```
 
-Use optimized images to keep page loading fast.
+Optimiser les images avant de les ajouter afin de conserver un chargement rapide.
 
 ---
 
-## 9. Customize the CSS
+## 9. Modifier le CSS
 
 Only edit:
 
@@ -158,13 +158,13 @@ css/main.css
 css/responsive.css
 ```
 
-when the theme configuration is not enough.
+uniquement lorsque la configuration du thème ne suffit pas.
 
-Keep reusable styles generic so future portfolios can benefit from the same improvements.
+Les styles doivent rester génériques afin que les améliorations puissent bénéficier aux futurs portfolios.
 
 ---
 
-## 10. Customize the JavaScript
+## 10. Modifier le JavaScript
 
 Only modify:
 
@@ -174,77 +174,77 @@ js/components/
 js/utils/
 ```
 
-when the functionality itself needs to change.
+lorsque le comportement ou la fonctionnalité du moteur doit réellement évoluer.
 
-Before modifying the core engine, ask:
+Avant de modifier le Core, poser cette question :
 
-> Is this change useful for every portfolio?
+> Est-ce que cette amélioration est utile à tous les futurs portfolios ?
 
-If yes, it probably belongs in the template engine.
+Si oui, elle a probablement sa place dans le template.
 
-If no, consider keeping it specific to the client project.
+Si non, elle peut rester spécifique au projet du client.
 
 ---
 
-## 11. Client-Specific vs Template Changes
+## 11. Différence entre modification du template et modification client
 
-### Template change
+### Modification du template
 
 Example:
 
-> Improve the mobile navigation for all portfolios.
+> Améliorer la navigation mobile pour tous les portfolios.
 
-This should be implemented in the template.
+Cette modification doit être intégrée au template.
 
-### Client-specific change
+### Modification spécifique à un client
 
 Example:
 
-> Add a special section describing this client's architecture.
+> Ajouter une section présentant l'architecture technique particulière de ce client.
 
-This should normally be implemented in the client's portfolio, not in the reusable template.
-
----
-
-## 12. Before Delivery Checklist
-
-### Content
-
-- [ ] Name is correct
-- [ ] Professional title is correct
-- [ ] About section is correct
-- [ ] Experience is complete
-- [ ] Projects are complete
-- [ ] Skills are correct
-- [ ] Education is correct
-- [ ] Social links work
-- [ ] Email is correct
-
-### Visual
-
-- [ ] Colors are consistent
-- [ ] Images are optimized
-- [ ] Desktop layout checked
-- [ ] Mobile layout checked
-- [ ] No placeholder text remains
-
-### Technical
-
-- [ ] No secrets committed
-- [ ] CV opens correctly
-- [ ] External links work
-- [ ] Contact form tested
-- [ ] SEO metadata updated
-- [ ] robots.txt checked
-- [ ] sitemap.xml updated
-- [ ] Production deployment tested
+Cette modification doit normalement rester dans le portfolio du client.
 
 ---
 
-## 13. Golden Rule
+## 12. Checklist avant livraison
 
-**Data changes should not require Core changes.**
+### Contenu
 
-If you repeatedly need to modify the same core code for different clients, consider improving the template so that the behavior becomes configurable.
+- [ ] Nom correct
+- [ ] Titre professionnel correct
+- [ ] Présentation complète
+- [ ] Expériences vérifiées
+- [ ] Projets vérifiés
+- [ ] Compétences vérifiées
+- [ ] Formation vérifiée
+- [ ] Liens sociaux fonctionnels
+- [ ] Email correct
 
-That is how this repository should gradually evolve from a personal portfolio into a reusable portfolio engine.
+### Design
+
+- [ ] Couleurs cohérentes
+- [ ] Images optimisées
+- [ ] Version desktop vérifiée
+- [ ] Version mobile vérifiée
+- [ ] Aucun texte placeholder restant
+
+### Technique
+
+- [ ] Aucun secret dans le dépôt
+- [ ] CV accessible
+- [ ] Liens externes fonctionnels
+- [ ] Formulaire de contact testé
+- [ ] Métadonnées SEO mises à jour
+- [ ] `robots.txt` vérifié
+- [ ] `sitemap.xml` vérifié
+- [ ] Déploiement de production testé
+
+---
+
+## 13. Règle d'or
+
+**Une modification des données ne devrait pas nécessiter de modification du Core.**
+
+Si la même modification du moteur est nécessaire pour plusieurs clients, il faut envisager de rendre ce comportement configurable.
+
+C'est ainsi que le dépôt peut progressivement évoluer d'un simple template vers un véritable **Portfolio Engine réutilisable**.
