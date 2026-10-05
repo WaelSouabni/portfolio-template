@@ -1,7 +1,7 @@
 export const education = [
   {
-    institution: "Institution Name",
-    degree: "Degree / Diploma",
+    institution: "Nom de l’établissement",
+    degree: "Diplôme / Formation",
     period: "2020 – 2022",
     description: ""
   }
