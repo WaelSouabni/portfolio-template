@@ -1,17 +1,12 @@
-import { profile } from "../data/profile.js";
-import { experience } from "../data/experience.js";
-import { projects } from "../data/projects.js";
-import { skills } from "../data/skills.js";
-import { education } from "../data/education.js";
-import { certifications } from "../data/certifications.js";
 import { settings } from "../data/settings.js";
-import { social } from "../data/social.js";
 import { theme } from "./config.js";
 import { escapeHtml } from "./utils/render.js";
-
-document.title = `${profile.name} — ${profile.role}`;
+import { getLocale, getLanguage } from "./i18n/index.js";
+import { applyDirection } from "./i18n/direction.js";
+import { renderLanguageSelector } from "./i18n/language.js";
 
 const root = document.documentElement;
+
 Object.entries(theme).forEach(([key, value]) => {
   const cssName = {
     primary: "--color-primary",
@@ -22,107 +17,188 @@ Object.entries(theme).forEach(([key, value]) => {
     muted: "--color-muted",
     radius: "--radius"
   }[key];
+
   if (cssName) root.style.setProperty(cssName, value);
 });
 
 function setSection(id, html, enabled = true) {
   const element = document.getElementById(id);
   if (!element) return;
-  if (!enabled) element.remove();
-  else element.innerHTML = html;
+
+  element.hidden = !enabled;
+  if (enabled) element.innerHTML = html;
 }
 
-const socialLinks = Object.entries(social)
-  .filter(([, value]) => value)
-  .map(([name, value]) => `<a class="btn" href="${escapeHtml(value)}" target="_blank" rel="noreferrer">${escapeHtml(name)}</a>`)
-  .join("");
+function renderNavigation(locale) {
+  const nav = document.getElementById("navbar");
+  const { ui } = locale;
 
-setSection("hero", `
-  <div class="section-inner">
-    <div class="section-label">${escapeHtml(profile.availability)}</div>
-    <h1 class="section-title">${escapeHtml(profile.name)}</h1>
-    <p class="muted">${escapeHtml(profile.role)}</p>
-    <p>${escapeHtml(profile.tagline)}</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
-      <a class="btn btn-primary" href="#contact">Contact me</a>
-      ${profile.cv ? `<a class="btn" href="${escapeHtml(profile.cv)}" target="_blank">View CV</a>` : ""}
+  const links = [
+    ["about", ui.nav.about],
+    ["experience", ui.nav.experience],
+    ["skills", ui.nav.skills],
+    ["projects", ui.nav.projects],
+    ["education", ui.nav.education],
+    ["certifications", ui.nav.certifications],
+    ["contact", ui.nav.contact]
+  ]
+    .filter(([id]) => settings.sections[id])
+    .map(([id, label]) => `<a href="#${id}">${escapeHtml(label)}</a>`)
+    .join("");
+
+  nav.innerHTML = `
+    <div class="nav-inner">
+      <a class="brand" href="#">${escapeHtml(locale.profile.firstName)}.</a>
+      <div class="nav-actions">
+        <nav class="nav-links">${links}</nav>
+        <div id="language-slot"></div>
+      </div>
     </div>
-  </div>
-`);
+  `;
 
-setSection("about", `
-  <div class="section-inner">
-    <div class="section-label">About</div>
-    <h2 class="section-title">Profile</h2>
-    <p class="muted">${escapeHtml(profile.about)}</p>
-  </div>
-`, settings.sections.about);
+  document.getElementById("language-slot").appendChild(
+    renderLanguageSelector(() => render())
+  );
+}
 
-setSection("experience", `
-  <div class="section-inner">
-    <div class="section-label">Experience</div>
-    <h2 class="section-title">Career</h2>
-    <div class="grid">
-      ${experience.map(item => `<article class="card"><h3>${escapeHtml(item.role)}</h3><strong>${escapeHtml(item.company)}</strong><p class="muted">${escapeHtml(item.start)} – ${escapeHtml(item.end)} · ${escapeHtml(item.location)}</p><p>${escapeHtml(item.description)}</p><ul>${item.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul></article>`).join("")}
+function render(locale = getLocale(getLanguage())) {
+  applyDirection(locale);
+  document.title = `${locale.profile.name} — ${locale.profile.role}`;
+
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.content = locale.profile.tagline;
+
+  renderNavigation(locale);
+
+  const socialLinks = Object.entries(locale.social)
+    .filter(([, value]) => value)
+    .map(([name, value]) =>
+      `<a class="btn" href="${escapeHtml(value)}" target="_blank" rel="noreferrer">${escapeHtml(name)}</a>`
+    )
+    .join("");
+
+  setSection("hero", `
+    <div class="section-inner hero-content">
+      <div class="section-label">${escapeHtml(locale.profile.availability)}</div>
+      <h1 class="section-title">${escapeHtml(locale.profile.name)}</h1>
+      <p class="role">${escapeHtml(locale.profile.role)}</p>
+      <p class="muted hero-tagline">${escapeHtml(locale.profile.tagline)}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#contact">${escapeHtml(locale.ui.hero.contact)}</a>
+        ${locale.profile.cv ? `<a class="btn" href="${escapeHtml(locale.profile.cv)}" target="_blank" rel="noreferrer">${escapeHtml(locale.ui.hero.cv)}</a>` : ""}
+      </div>
     </div>
-  </div>
-`, settings.sections.experience);
+  `);
 
-setSection("skills", `
-  <div class="section-inner">
-    <div class="section-label">Skills</div>
-    <h2 class="section-title">Expertise</h2>
-    <div class="grid grid-3">
-      ${Object.entries(skills).map(([group, values]) => `<article class="card"><h3>${escapeHtml(group)}</h3><div style="display:flex;gap:8px;flex-wrap:wrap">${values.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join("")}</div></article>`).join("")}
+  setSection("about", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.about.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.about.title)}</h2>
+      <p class="muted reading-width">${escapeHtml(locale.profile.about)}</p>
     </div>
-  </div>
-`, settings.sections.skills);
+  `, settings.sections.about);
 
-setSection("projects", `
-  <div class="section-inner">
-    <div class="section-label">Projects</div>
-    <h2 class="section-title">Selected work</h2>
-    <div class="grid grid-2">
-      ${projects.map(p => `<article class="card"><h3>${escapeHtml(p.title)}</h3><p class="muted">${escapeHtml(p.description)}</p><div style="display:flex;gap:8px;flex-wrap:wrap">${p.technologies.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>${p.url ? `<p><a class="btn" href="${escapeHtml(p.url)}" target="_blank" rel="noreferrer">View project</a></p>` : ""}</article>`).join("")}
+  setSection("experience", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.experience.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.experience.title)}</h2>
+      <div class="grid">
+        ${locale.experience.map(item => `
+          <article class="card">
+            <h3>${escapeHtml(item.role)}</h3>
+            <strong>${escapeHtml(item.company)}</strong>
+            <p class="muted">${escapeHtml(item.start)} – ${escapeHtml(item.end)} · ${escapeHtml(item.location)}</p>
+            <p>${escapeHtml(item.description)}</p>
+            <ul>${item.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
+          </article>
+        `).join("")}
+      </div>
     </div>
-  </div>
-`, settings.sections.projects);
+  `, settings.sections.experience);
 
-setSection("education", `
-  <div class="section-inner">
-    <div class="section-label">Education</div>
-    <h2 class="section-title">Education</h2>
-    <div class="grid">
-      ${education.map(e => `<article class="card"><h3>${escapeHtml(e.degree)}</h3><strong>${escapeHtml(e.institution)}</strong><p class="muted">${escapeHtml(e.period)}</p><p>${escapeHtml(e.description)}</p></article>`).join("")}
+  setSection("skills", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.skills.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.skills.title)}</h2>
+      <div class="grid grid-3">
+        ${Object.entries(locale.skills).map(([group, values]) => `
+          <article class="card">
+            <h3>${escapeHtml(locale.skillLabels?.[group] || group)}</h3>
+            <div class="tags">${values.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join("")}</div>
+          </article>
+        `).join("")}
+      </div>
     </div>
-  </div>
-`, settings.sections.education);
+  `, settings.sections.skills);
 
-setSection("certifications", `
-  <div class="section-inner">
-    <div class="section-label">Certifications</div>
-    <h2 class="section-title">Certifications</h2>
-    <div class="grid">${certifications.map(c => `<article class="card"><h3>${escapeHtml(c.name)}</h3><p class="muted">${escapeHtml(c.issuer || "")}</p></article>`).join("")}</div>
-  </div>
-`, settings.sections.certifications);
-
-setSection("services", "", settings.sections.services);
-setSection("testimonials", "", settings.sections.testimonials);
-setSection("playground", "", settings.sections.playground);
-
-setSection("contact", `
-  <div class="section-inner">
-    <div class="section-label">Contact</div>
-    <h2 class="section-title">Let's talk</h2>
-    <p class="muted">Interested in working together? Reach out directly.</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
-      <a class="btn btn-primary" href="mailto:${escapeHtml(profile.email)}">Email me</a>
-      ${socialLinks}
+  setSection("projects", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.projects.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.projects.title)}</h2>
+      <div class="grid grid-2">
+        ${locale.projects.map(p => `
+          <article class="card project-card">
+            ${p.image ? `<img src="${escapeHtml(p.image)}" alt="" loading="lazy">` : ""}
+            <h3>${escapeHtml(p.title)}</h3>
+            <p class="muted">${escapeHtml(p.description)}</p>
+            <div class="tags">${p.technologies.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>
+            ${p.url ? `<p><a class="btn" href="${escapeHtml(p.url)}" target="_blank" rel="noreferrer">${escapeHtml(locale.ui.projects.view)}</a></p>` : ""}
+          </article>
+        `).join("")}
+      </div>
     </div>
-  </div>
-`, settings.sections.contact);
+  `, settings.sections.projects);
 
-const nav = document.getElementById("navbar");
-nav.innerHTML = `<div class="section-inner" style="padding:20px 0;display:flex;justify-content:space-between;align-items:center"><strong>${escapeHtml(profile.firstName)}.</strong><a class="btn" href="#contact">Contact</a></div>`;
+  setSection("education", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.education.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.education.title)}</h2>
+      <div class="grid">
+        ${locale.education.map(item => `
+          <article class="card">
+            <h3>${escapeHtml(item.degree)}</h3>
+            <strong>${escapeHtml(item.institution)}</strong>
+            <p class="muted">${escapeHtml(item.period)}</p>
+            ${item.description ? `<p>${escapeHtml(item.description)}</p>` : ""}
+          </article>
+        `).join("")}
+      </div>
+    </div>
+  `, settings.sections.education);
 
-document.getElementById("footer").innerHTML = `<div class="section-inner" style="padding:30px 0"><p class="muted">© ${new Date().getFullYear()} ${escapeHtml(profile.name)}</p></div>`;
+  setSection("certifications", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.certifications.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.certifications.title)}</h2>
+      <div class="grid">
+        ${locale.certifications.map(item => `
+          <article class="card"><h3>${escapeHtml(item.name)}</h3><p class="muted">${escapeHtml(item.issuer || "")}</p></article>
+        `).join("")}
+      </div>
+    </div>
+  `, settings.sections.certifications);
+
+  setSection("services", "", settings.sections.services);
+  setSection("testimonials", "", settings.sections.testimonials);
+  setSection("playground", "", settings.sections.playground);
+
+  setSection("contact", `
+    <div class="section-inner">
+      <div class="section-label">${escapeHtml(locale.ui.contact.label)}</div>
+      <h2 class="section-title">${escapeHtml(locale.ui.contact.title)}</h2>
+      <p class="muted reading-width">${escapeHtml(locale.ui.contact.text)}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:${escapeHtml(locale.profile.email)}">${escapeHtml(locale.ui.contact.email)}</a>
+        ${socialLinks}
+      </div>
+    </div>
+  `, settings.sections.contact);
+
+  document.getElementById("footer").innerHTML = `
+    <div class="section-inner footer-inner">
+      <p class="muted">© ${new Date().getFullYear()} ${escapeHtml(locale.profile.name)} · ${escapeHtml(locale.ui.footer)}</p>
+    </div>
+  `;
+}
+
+render();
