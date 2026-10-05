@@ -1,0 +1,9 @@
+{
+  "name": "portfolio-template",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "translate": "node scripts/translate.mjs"
+  }
+}
