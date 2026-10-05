@@ -1,0 +1,4 @@
+@media (max-width: 800px) {
+  .section { width: min(100% - 28px, var(--container)); padding: 68px 0; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
