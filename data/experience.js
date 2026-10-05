@@ -1,11 +1,11 @@
 export const experience = [
   {
-    company: "Company Name",
-    role: "Job Title",
-    location: "City / Remote",
+    company: "Nom de l’entreprise",
+    role: "Intitulé du poste",
+    location: "Ville / Télétravail",
     start: "2024",
-    end: "Present",
-    description: "Describe the role, responsibilities and measurable impact.",
-    achievements: ["Achievement or responsibility", "Achievement or responsibility"]
+    end: "Aujourd’hui",
+    description: "Décrivez le poste, les responsabilités et l’impact obtenu.",
+    achievements: ["Réalisation ou responsabilité importante", "Réalisation ou responsabilité importante"]
   }
 ];
